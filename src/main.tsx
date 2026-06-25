@@ -97,9 +97,12 @@ createRoot(document.getElementById('root')!).render(
             modalProps={{
               transitionProps: {
                 transition: 'fade',
-                duration: 50,
+                //duration: 50,
               },
-              centered: true
+              centered: true,
+              overlayProps: {
+                blur: 2,
+              }
             }}
             modals={{
               importDocument: ImportDocumentModal,

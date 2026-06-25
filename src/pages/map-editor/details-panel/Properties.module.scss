@@ -43,6 +43,7 @@
       }
       
       &:not(:focus) {
+        border-color: transparent;
         background-color: transparent;
       }
 

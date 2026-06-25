@@ -2,7 +2,7 @@ import { useActiveElement } from 'context/useActiveElement';
 import type { Position } from 'geojson';
 import type { Corner } from 'models/MapDocument';
 import { useDispatch } from 'react-redux';
-import MapperDocThunks from 'state/mapper/doc-slice-thunks';
+import MapperDocThunks from 'state/mapper/docThunks';
 import useMapperDoc from 'state/mapper/useDoc';
 import useMapperSettings from 'state/mapper/useSettings';
 import type { AppDispatch } from 'state/store';

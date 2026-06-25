@@ -1,5 +1,4 @@
-import { Button as MButton, Menu } from '@mantine/core';
-import { ArrowLineDownIcon, CaretDownIcon, FileArrowDownIcon, FileArrowUpIcon, FileIcon, FilePlusIcon, FloppyDiskIcon, FolderOpenIcon, GearIcon } from '@phosphor-icons/react';
+import { ArrowLineDownIcon, FileArrowDownIcon, FileArrowUpIcon, FilePlusIcon, FloppyDiskIcon, FolderOpenIcon, GearIcon } from '@phosphor-icons/react';
 import { ClockCounterClockwiseIcon } from '@phosphor-icons/react/dist/ssr';
 import Button from 'components/Button';
 import DescriptiveTooltip from 'components/DescriptiveTooltip';
@@ -10,12 +9,15 @@ import { useSelector } from 'react-redux';
 import type { RootState } from 'state/store';
 import { isEventTargetEditable } from 'utils';
 import { MapperHistory } from '../MapperHistory';
-import styles from './Ribbon.module.scss';
+import useCommit from './buttons/useCommit';
 import useImport from './buttons/useImport';
+import useNew from './buttons/useNew';
 import useOpen from './buttons/useOpen';
 import useRedo from './buttons/useRedo';
 import useSave from './buttons/useSave';
 import useUndo from './buttons/useUndo';
+import DocumentsButton from './DocumentsButton';
+import styles from './Ribbon.module.scss';
 
 export interface EditorRibbonProps {
 
@@ -25,18 +27,19 @@ function DocumentRibbon ({
 
 }: EditorRibbonProps) {
   const doc = useSelector((state: RootState) => state.mapEditorDoc);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const { handleUndo } = useUndo();
   const { handleRedo } = useRedo();
+  const { handleNew } = useNew();
   const { handleOpen } = useOpen();
+  const { handleCommit } = useCommit();
   const { handleSave } = useSave();
   const { handleImport } = useImport();
 
   const [canUndo, setCanUndo] = useState(false);
   const [canRedo, setCanRedo] = useState(false);
 
-  function handleCommit () {}
   function handleShowHistory () {}
 
   useEffect(() => {
@@ -52,41 +55,15 @@ function DocumentRibbon ({
 
   return (
     <div className={styles.ribbon}>
-      <Menu width={200}>
-        <Menu.Target>
-          <MButton
-            classNames={{
-              root: styles.docButton,
-              inner: styles.inner,
-              label: styles.label,
-            }}
-            variant='outline'
-            color='gray'
-          >
-            <FileIcon size={24} weight='thin' />
-
-            <span className={styles.name}>
-              {doc.content.name}
-            </span>
-
-            <CaretDownIcon />
-          </MButton>
-        </Menu.Target>
-
-        <Menu.Dropdown w={240}>
-          {doc.headers.map(h => (
-            <Menu.Item key={h.id}>
-              {t("mapper.name")} ({h.modifiedAt})
-            </Menu.Item>
-          ))}
-        </Menu.Dropdown>
-      </Menu>
+      <DocumentsButton />
       
       <DescriptiveTooltip
         label={t("ribbon.new.name")}
         description={t("ribbon.new.desc")}
       >
-        <Button>
+        <Button
+          onClick={handleNew}
+        >
           <FilePlusIcon size={24} weight='thin' />
         </Button>
       </DescriptiveTooltip>

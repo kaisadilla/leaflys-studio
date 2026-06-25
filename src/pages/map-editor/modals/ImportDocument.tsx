@@ -8,7 +8,7 @@ import { isShape, shapeToPolygon, type MapperElement } from "models/MapDocument"
 import { useState } from "react";
 import { Marker, Polygon, Polyline } from "react-leaflet";
 import { useDispatch } from "react-redux";
-import MapperDocThunks from "state/mapper/doc-slice-thunks";
+import MapperDocThunks from "state/mapper/docThunks";
 import useMapperSettings from "state/mapper/useSettings";
 import { type AppDispatch } from "state/store";
 import styles from './ImportDocument.module.scss';

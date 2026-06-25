@@ -5,7 +5,7 @@ import { type MapperElement, type MapperRectangle } from 'models/MapDocument';
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import MapperDocThunks from 'state/mapper/doc-slice-thunks';
+import MapperDocThunks from 'state/mapper/docThunks';
 import { type AppDispatch } from 'state/store';
 import styles from './Attributes.module.scss';
 import Properties from './Properties';

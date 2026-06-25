@@ -27,6 +27,7 @@ const MapperDocThunks = {
       }));
     };
   },
+  
   addElements (
     elements: MapperElement[],
     groupId?: string | null,

@@ -50,7 +50,7 @@ export default function useRedo () {
   }
 
   function redoChangeElement (action: ChangeElementMapperAction) {
-    dispatch(MapperDocActions.changeElement({
+    dispatch(MapperDocActions.updateElement({
       elementId: action.elementId,
       update: action.after,
     }));

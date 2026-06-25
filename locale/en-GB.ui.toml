@@ -1,5 +1,3 @@
-mapper.name = "Map editor"
-
 [dropzone]
 invalid_file.title = "Invalid file"
 invalid_file.message = "Sorry, we couldn't recognize this file's format."

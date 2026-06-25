@@ -54,7 +54,7 @@ export default function useUndo () {
   }
 
   function undoChangeElement (action: ChangeElementMapperAction) {
-    dispatch(MapperDocActions.changeElement({
+    dispatch(MapperDocActions.updateElement({
       elementId: action.elementId,
       update: action.before,
     }));

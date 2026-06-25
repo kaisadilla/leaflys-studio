@@ -1,8 +1,8 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Position } from "geojson";
 import Local from "Local";
 import Logger from "Logger";
-import { ContainerType, isContainer, isPseudoContainer, isShape, type MapperDocument, type MapperElement, type MapperPolygon, type MapperRectangle } from "models/MapDocument";
+import { ContainerType, isContainer, isPseudoContainer, isShape, type Edge, type MapperDocument, type MapperElement, type MapperPolygon, type MapperRectangle, type Update } from "models/MapDocument";
 import { v4 as uuid } from 'uuid';
 
 export interface MapperDocHeader {
@@ -62,6 +62,26 @@ const initialState: MapperDocState = {
   headers: headers,
 }
 
+export const newDocument = createAsyncThunk(
+  'mapperDoc/newDocument',
+  async (name: string) => {
+    const doc = makeNewDocument(name);
+    const docId = await Local.saveDocument(name, doc);
+
+    return { doc, docId, };
+  }
+);
+
+export const loadDocument = createAsyncThunk(
+  'mapperDoc/loadDocument',
+  async (docId: string) => {
+    const doc = await Local.loadDocument(docId);
+    if (doc === null) return null;
+
+    return { doc, docId, };
+  }
+);
+
 const mapperDocSlice = createSlice({
   name: 'mapperDoc',
   initialState,
@@ -118,9 +138,9 @@ const mapperDocSlice = createSlice({
       removeElement(targetParent, action.payload);
     },
 
-    changeElement (state, action: PayloadAction<{
+    updateElement (state, action: PayloadAction<{
       elementId: string,
-      update: Partial<Omit<MapperElement, 'id'>>
+      update: Update<MapperElement>
     }>) {
       const { elementId, update } = action.payload;
 
@@ -291,7 +311,7 @@ const mapperDocSlice = createSlice({
 
     updatePolygon (state, action: PayloadAction<{
       elementId: string,
-      update: Partial<Omit<MapperPolygon, 'id'>>
+      update: Update<MapperPolygon>
     }>) {
       const { elementId, update } = action.payload;
 
@@ -319,7 +339,7 @@ const mapperDocSlice = createSlice({
 
     updateRectangleCorner (state, action: PayloadAction<{
       elementId: string;
-      edge: 'north' | 'south' | 'west' | 'east';
+      edge: Edge;
       value: number;
     }>) {
       const { elementId, edge, value } = action.payload;
@@ -334,7 +354,7 @@ const mapperDocSlice = createSlice({
 
     updateRectangle (state, action: PayloadAction<{
       elementId: string;
-      update: Partial<Omit<MapperRectangle, 'id'>>;
+      update: Update<MapperRectangle>;
     }>) {
       const { elementId, update } = action.payload;
 
@@ -344,6 +364,36 @@ const mapperDocSlice = createSlice({
 
       Object.assign(el, update);
     }
+  },
+  extraReducers: builder => {
+    builder
+      .addCase(newDocument.pending, state => {
+
+      })
+      .addCase(newDocument.fulfilled, (state, action) => {
+        const { doc, docId } = action.payload;
+
+        state.content = doc;
+        state.activeId = docId;
+        state.headers = Local.getDocumentHeaders();
+      })
+      .addCase(newDocument.rejected, (state, action) => {
+
+      })
+      .addCase(loadDocument.pending, state => {
+
+      })
+      .addCase(loadDocument.fulfilled, (state, action) => {
+        if (action.payload === null) return;
+
+        const { doc, docId } = action.payload;
+        
+        state.content = doc;
+        state.activeId = docId;
+      })
+      .addCase(loadDocument.rejected, state => {
+
+      });
   },
 });
 

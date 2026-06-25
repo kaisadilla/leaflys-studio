@@ -1,5 +1,3 @@
-mapper.name = "Editor de mapas"
-
 [dropzone]
 invalid_file.title = "Archivo inválido"
 invalid_file.message = "Lo sentimos, pero no reconocemos el formato del archivo."

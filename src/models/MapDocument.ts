@@ -166,6 +166,8 @@ export const PseudoContainerType = new Set<MapperElementType>([
 export type Edge = 'north' | 'south' | 'west' | 'east';
 export type Corner = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
 
+export type Update<T> = Partial<Omit<T, 'id'>>;
+
 /**
  * The types of `MapperElement` that can contain children.
  */
