@@ -14,6 +14,17 @@ import ImportDocumentModal from 'pages/map-editor/modals/ImportDocument.tsx';
 import App from './App.tsx';
 import { store } from './state/store.ts';
 
+//import '@fontsource/alegreya/400-italic.css';
+import '@fontsource/alegreya/400.css';
+//import '@fontsource/alegreya/600-italic.css';
+import '@fontsource/alegreya/600.css';
+import '@fontsource/alegreya/700.css';
+import { APP_BUILD } from 'Constants.ts';
+import Local from 'Local.ts';
+
+Local.setBuild(APP_BUILD);
+console.info("Starting Yerevan. Build:", APP_BUILD);
+
 const mantineTheme = createTheme({
   colors: {
     blue: [
@@ -27,7 +38,20 @@ const mantineTheme = createTheme({
       "var(--color-primary-d1)",
       "var(--color-primary-d2)",
       "var(--color-primary-d2)",
-    ]
+    ],
+    gray: [
+      "var(--color-gray-50)",
+      "var(--color-gray-100)",
+      "var(--color-gray-200)",
+      "var(--color-gray-300)",
+      "var(--color-gray-400)",
+      "var(--color-gray-500)",
+      "var(--color-gray-600)",
+      "var(--color-gray-700)",
+      "var(--color-gray-800)",
+      "var(--color-gray-900)",
+      "var(--color-gray-950)",
+    ],
   },
   defaultRadius: 0,
   components: {

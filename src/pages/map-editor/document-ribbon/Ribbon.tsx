@@ -1,12 +1,13 @@
 import { Button as MButton, Menu } from '@mantine/core';
-import { FileArrowDownIcon, FileArrowUpIcon, FilePlusIcon, FloppyDiskIcon, FolderOpenIcon, GearIcon } from '@phosphor-icons/react';
-import Local from 'Local';
+import { ArrowLineDownIcon, CaretDownIcon, FileArrowDownIcon, FileArrowUpIcon, FileIcon, FilePlusIcon, FloppyDiskIcon, FolderOpenIcon, GearIcon } from '@phosphor-icons/react';
+import { ClockCounterClockwiseIcon } from '@phosphor-icons/react/dist/ssr';
 import Button from 'components/Button';
 import DescriptiveTooltip from 'components/DescriptiveTooltip';
-import { getLocaleIcon, getLocaleName, LOCALE_NAMES } from 'i18n';
 import { Redo, Undo } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import type { RootState } from 'state/store';
 import { isEventTargetEditable } from 'utils';
 import { MapperHistory } from '../MapperHistory';
 import styles from './Ribbon.module.scss';
@@ -17,10 +18,13 @@ import useSave from './buttons/useSave';
 import useUndo from './buttons/useUndo';
 
 export interface EditorRibbonProps {
-  
+
 }
 
-function DocumentRibbon (props: EditorRibbonProps) {
+function DocumentRibbon ({
+
+}: EditorRibbonProps) {
+  const doc = useSelector((state: RootState) => state.mapEditorDoc);
   const { t, i18n } = useTranslation();
 
   const { handleUndo } = useUndo();
@@ -31,6 +35,9 @@ function DocumentRibbon (props: EditorRibbonProps) {
 
   const [canUndo, setCanUndo] = useState(false);
   const [canRedo, setCanRedo] = useState(false);
+
+  function handleCommit () {}
+  function handleShowHistory () {}
 
   useEffect(() => {
     MapperHistory.onHistoryChange(handleHistoryChange);
@@ -48,72 +55,96 @@ function DocumentRibbon (props: EditorRibbonProps) {
       <Menu width={200}>
         <Menu.Target>
           <MButton
-            classNames={{root: styles.toolButton}}
-            variant='light'
+            classNames={{
+              root: styles.docButton,
+              inner: styles.inner,
+              label: styles.label,
+            }}
+            variant='outline'
+            color='gray'
           >
-            {t("mapper.name")}
+            <FileIcon size={24} weight='thin' />
+
+            <span className={styles.name}>
+              {doc.content.name}
+            </span>
+
+            <CaretDownIcon />
           </MButton>
         </Menu.Target>
 
-        <Menu.Dropdown>
-          <Menu.Item>
-            {t("mapper.name")}
-          </Menu.Item>
+        <Menu.Dropdown w={240}>
+          {doc.headers.map(h => (
+            <Menu.Item key={h.id}>
+              {t("mapper.name")} ({h.modifiedAt})
+            </Menu.Item>
+          ))}
         </Menu.Dropdown>
       </Menu>
+      
+      <DescriptiveTooltip
+        label={t("ribbon.new.name")}
+        description={t("ribbon.new.desc")}
+      >
+        <Button>
+          <FilePlusIcon size={24} weight='thin' />
+        </Button>
+      </DescriptiveTooltip>
 
-      <div className={styles.documentRibbon}>
-        <DescriptiveTooltip
-          label={t("ribbon.new.name")}
-          description={t("ribbon.new.desc")}
+      <DescriptiveTooltip
+        label={t("ribbon.open.name")}
+        description={t("ribbon.open.desc")}
+      >
+        <Button
+          onClick={handleOpen}
         >
-          <Button>
-            <FilePlusIcon size={24} weight='thin' />
-          </Button>
-        </DescriptiveTooltip>
+          <FolderOpenIcon size={24} weight='thin' />
+        </Button>
+      </DescriptiveTooltip>
 
-        <DescriptiveTooltip
-          label={t("ribbon.open.name")}
-          description={t("ribbon.open.desc")}
+      <DescriptiveTooltip
+        label={t("ribbon.commit.name")}
+        description={t("ribbon.commit.desc")}
+      >
+        <Button
+          onClick={handleCommit}
         >
-          <Button
-            onClick={handleOpen}
-          >
-            <FolderOpenIcon size={24} weight='thin' />
-          </Button>
-        </DescriptiveTooltip>
+          <ArrowLineDownIcon size={24} weight='thin' />
+        </Button>
+      </DescriptiveTooltip>
 
-        <DescriptiveTooltip
-          label={t("ribbon.save.name")}
-          description={t("ribbon.save.desc")}
+      <DescriptiveTooltip
+        label={t("ribbon.save.name")}
+        description={t("ribbon.save.desc")}
+      >
+        <Button
+          onClick={handleSave}
         >
-          <Button
-            onClick={handleSave}
-          >
-            <FloppyDiskIcon size={24} weight='thin' />
-          </Button>
-        </DescriptiveTooltip>
+          <FloppyDiskIcon size={24} weight='thin' />
+        </Button>
+      </DescriptiveTooltip>
 
-        <DescriptiveTooltip
-          label={t("ribbon.import.name")}
-          description={t("ribbon.import.desc")}
+      <DescriptiveTooltip
+        label={t("ribbon.import.name")}
+        description={t("ribbon.import.desc")}
+      >
+        <Button
+          onClick={handleImport}
         >
-          <Button
-            onClick={handleImport}
-          >
-            <FileArrowDownIcon size={24} weight='thin' />
-          </Button>
-        </DescriptiveTooltip>
+          <FileArrowDownIcon size={24} weight='thin' />
+        </Button>
+      </DescriptiveTooltip>
 
-        <DescriptiveTooltip
-          label={t("ribbon.export.name")}
-          description={t("ribbon.export.desc")}
-        > 
-          <Button>
-            <FileArrowUpIcon size={24} weight='thin' />
-          </Button>
-        </DescriptiveTooltip>
+      <DescriptiveTooltip
+        label={t("ribbon.export.name")}
+        description={t("ribbon.export.desc")}
+      > 
+        <Button>
+          <FileArrowUpIcon size={24} weight='thin' />
+        </Button>
+      </DescriptiveTooltip>
 
+      <div className={styles.historyRibbon}>
         <DescriptiveTooltip
           label={t("ribbon.undo.name")}
           shortcut="Ctrl + Z"
@@ -139,6 +170,20 @@ function DocumentRibbon (props: EditorRibbonProps) {
         </DescriptiveTooltip>
 
         <DescriptiveTooltip
+          label={t("ribbon.history.name")}
+          shortcut="Ctrl + H"
+        > 
+          <Button
+            onClick={handleShowHistory}
+          >
+            <ClockCounterClockwiseIcon />
+          </Button>
+        </DescriptiveTooltip>
+      </div>
+
+      {false && <div className={styles.appRibbon}>
+
+        <DescriptiveTooltip
           label={t("ribbon.settings.name")}
           description={t("ribbon.settings.desc")}
         > 
@@ -146,46 +191,7 @@ function DocumentRibbon (props: EditorRibbonProps) {
             <GearIcon size={24} weight='thin' />
           </Button>
         </DescriptiveTooltip>
-      </div>
-
-      <div className={styles.appRibbon}>
-        <Menu
-          classNames={{
-            dropdown: styles.languageMenu,
-            item: styles.languageMenuItem,
-          }}
-        >
-          <Menu.Target>
-            <DescriptiveTooltip
-              label={t("ribbon.language.name")}
-              description={t("ribbon.language.desc")}
-            > 
-              <Button className={styles.langButton}>
-                <img
-                  className={styles.langIcon}
-                  src={getLocaleIcon(i18n.language)}
-                />
-              </Button>
-            </DescriptiveTooltip>
-          </Menu.Target>
-
-          <Menu.Dropdown>
-              <Menu.Label>{t("ribbon.language.name")}</Menu.Label>
-            {Object.keys(LOCALE_NAMES).map(k => (
-              <Menu.Item
-                key={k}
-                onClick={() => handleChangeLanguage(k)}
-                data-active={k === i18n.language}
-              >
-                <div className={styles.container}>
-                  <img className={styles.langIcon} src={getLocaleIcon(k)} />
-                  <div className={styles.name}>{getLocaleName(k)}</div>
-                </div>
-              </Menu.Item>
-            ))}
-          </Menu.Dropdown>
-        </Menu>
-      </div>
+      </div>}
     </div>
   );
 
@@ -203,11 +209,6 @@ function DocumentRibbon (props: EditorRibbonProps) {
     else if (evt.code === 'KeyY') {
       handleRedo();
     }
-  }
-
-  function handleChangeLanguage (key: string) {
-    i18n.changeLanguage(key);
-    Local.setLocale(key);
   }
 }
 

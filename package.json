@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@atlaskit/pragmatic-drag-and-drop": "^1.7.7",
+    "@fontsource/alegreya": "^5.2.8",
     "@mantine/core": "8.3.18",
     "@mantine/dates": "8.3.18",
     "@mantine/dropzone": "8.3.18",
@@ -36,6 +37,7 @@
     "geojson-validation": "^1.0.2",
     "i18next": "^25.6.0",
     "i18next-http-backend": "^3.0.2",
+    "idb": "^8.0.3",
     "leaflet": "^1.9.4",
     "leaflet-markers-canvas": "^0.2.2",
     "leaflet-truesize": "^3.1.0",
@@ -45,6 +47,7 @@
     "react": "^19.0.0-rc.1",
     "react-dom": "^19.0.0-rc.1",
     "react-i18next": "^16.1.0",
+    "react-joyride": "^3.0.2",
     "react-leaflet": "^5.0.0-rc.2",
     "react-redux": "^9.2.0",
     "react-resizable-panels": "^3.0.6",

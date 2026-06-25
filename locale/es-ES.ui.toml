@@ -27,15 +27,18 @@ import.desc = "Añade parcial o totalmente el contenido de otro documento GeoJSO
 export.name = "Exportar GeoJSON"
 export.desc = "Guarda este documento como un archivo GeoJSON genérico, sin guardar metadatos de Yerevan. Usa esta opción si no tienes intención de volver a abrir esa copia en esta aplicación."
 
-language.name = "Idioma"
-language.desc = "Cambia el idioma de la interfaz."
-
 undo.name = "Deshacer"
 
 redo.name = "Rehacer"
 
 settings.name = "Opciones"
 settings.desc = "Configura las opciones y propiedades del documento y de Yerevan."
+
+language.name = "Idioma"
+language.desc = "Cambia el idioma de la interfaz."
+
+tour.name = "Empezar tour"
+tour.desc = "Hace un recorrido por la interfaz de la aplicación, explicándola."
 
 [element_panel.ribbon]
 group.name = "Grupo"

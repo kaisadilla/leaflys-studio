@@ -37,7 +37,7 @@
       background-color: var(--color-secondary-l5);
       border: 1px solid var(--color-secondary-l2);
 
-      font-family: var(--font-consolas);
+      font-family: var(--font-mono);
       color: var(--color-secondary-d3);
 
       > span {
@@ -54,9 +54,10 @@
     .textRoot {
       width: 100%;
 
-      font-size: 9pt;
-      font-style: italic;
-      color: var(--color-secondary-d2);
+      font-family: var(--font-serif);
+      font-size: 10pt;
+      //font-style: italic;
+      color: var(--color-ink-l2);
 
       white-space: normal;
       word-break: keep-all !important;

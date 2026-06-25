@@ -6,4 +6,10 @@
     width: 100%;
     height: 100%;
   }
+
+  :global(.leaflet-control-attribution) {
+    color: var(--color-ink-l1);
+    font-family: var(--font-serif);
+    font-size: 10pt;
+  }
 }

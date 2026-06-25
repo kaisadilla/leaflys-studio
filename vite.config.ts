@@ -14,6 +14,10 @@ export default defineConfig ({
     svgr(),
     tsconfigPaths(),
     tomlToJsonPlugin(),
+    //prerender({
+    //  staticDir: path.join(__dirname, 'dist'),
+    //  routes: ["/", "/e/"],
+    //}),
   ],
   optimizeDeps: {
     include: ['monaco-editor']

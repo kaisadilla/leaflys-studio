@@ -1,4 +1,4 @@
-import { ScrollArea, Text } from '@mantine/core';
+import { ScrollArea } from '@mantine/core';
 import { useActiveElement } from 'context/useActiveElement';
 import { useSelector } from 'react-redux';
 import type { RootState } from 'state/store';
@@ -16,11 +16,7 @@ function ElementPanel (props: ElementPanelProps) {
   const active = useActiveElement();
 
   return (
-    <div className={styles.panel}>
-      <div className={styles.header}>
-        <Text lineClamp={1}>{doc.content.name}</Text>
-      </div>
-      
+    <div className={styles.panel}>      
       <Ribbon />
 
       <ScrollArea

@@ -1,5 +1,6 @@
 :root {
   --mantine-font-size-sm: 10pt;
+  --mantine-color-gray-outline: var(--color-frame) !important;
 }
 
 .mantine-Tooltip-tooltip,
@@ -77,4 +78,12 @@
   .mantine-Modal-body {
     padding: 0;
   }
+}
+
+.mantine-active:active {
+  transform: unset;
+}
+
+.mantine-Button-root[data-variant="outline"] {
+  --button-color: var(--color-ink-l1) !important;
 }

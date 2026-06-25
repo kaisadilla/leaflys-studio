@@ -1,48 +1,50 @@
 .ribbon {
-  width: 100%;
+  flex: 1;
   height: 100%;
 
   display: flex;
   flex-direction: row;
-  gap: 12px;
+  padding-right: 12px;
 
-  .toolButton {
+  .docButton {
     height: 100%;
-    width: 180px;
+    width: 240px;
+    padding: 0 8px;
+    height: 32px;
+
+    .inner {
+      justify-content: start;
+    }
+    
+    .label {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+
+      > .name {
+        flex: 1;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        text-align: start;
+      }
+    }
   }
 
-  .documentRibbon, .appRibbon {
-    height: 100%;
-
+  .historyRibbon {
+    margin: 0 16px;
+    margin-left: auto;
+    
     display: flex;
     flex-direction: row;
     align-items: center;
+    padding: 0 12px;
+
+    background-color: var(--color-gray-100);
   }
 
-  .langButton {
-
+  .documentRibbon {
+    flex: 1;
   }
-}
-
-.languageMenu {
-  .languageMenuItem {
-    &[data-active=true] {
-      background-color: var(--color-primary-l2);
-      font-weight: 600;
-    }
-
-    .container {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 1em;
-    }
-  }
-}
-
-.langIcon {
-  max-width: 24px;
-  max-height: 24px;
-  border-radius: 4px;
-  object-fit: contain;
 }

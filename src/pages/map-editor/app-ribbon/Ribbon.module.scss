@@ -1,0 +1,31 @@
+.ribbon {
+  flex-shrink: 0;
+  height: 100%;
+
+  display: flex;
+  flex-direction: row;
+  padding-right: 12px;
+}
+
+.languageMenu {
+  .languageMenuItem {
+    &[data-active=true] {
+      background-color: var(--color-primary-l2);
+      font-weight: 600;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 1em;
+    }
+  }
+}
+
+.langIcon {
+  max-width: 24px;
+  max-height: 24px;
+  border-radius: 4px;
+  object-fit: contain;
+}

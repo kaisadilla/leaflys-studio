@@ -18,6 +18,9 @@ new.desc = "Create a new blank document."
 open.name = "Open document"
 open.desc = "Opens a different Yerevan document. For GeoJSON documents from other origins, use 'Import' instead."
 
+commit.name = "Commit changes"
+commit.desc = "Stores your changes to the browser."
+
 save.name = "Save document"
 save.desc = "Saves this document as a GeoJSON file, encoding all Yerevan-related metadata for future use inside this app. Use this option if you intend to open the document in this app in the future."
 
@@ -27,15 +30,20 @@ import.desc = "Add the contents of a GeoJSON file (partially or completely) to t
 export.name = "Export GeoJSON"
 export.desc = "Save this document as a GeoJSON file, without encoding any Yerevan-related metadata. Use this option if you don't intend to reopen that file in this app."
 
-language.name = "Language"
-language.desc = "Change the interface's language."
-
 undo.name = "Undo"
 
 redo.name = "Redo"
 
+history.name = "Edition history"
+
 settings.name = "Settings"
 settings.desc = "Edit settings and properties related to this document and Yerevan."
+
+language.name = "Language"
+language.desc = "Change the interface's language."
+
+tour.name = "Start tour"
+tour.desc = "Do a quick tour around this app's interface to explain it."
 
 [element_panel.ribbon]
 group.name = "Group"
