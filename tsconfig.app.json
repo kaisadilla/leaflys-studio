@@ -24,6 +24,7 @@
     "noUncheckedSideEffectImports": true,
 
     /* Additional config */
+    "ignoreDeprecations": "6.0",
     "baseUrl": "./src",
   },
   "include": ["src"]

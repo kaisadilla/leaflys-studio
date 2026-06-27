@@ -90,14 +90,14 @@
   transform: unset;
 }
 
-.mantine-Button-root[data-variant="outline"] {
+.mantine-Button-root[data-variant=outline] {
   --button-color: var(--color-ink-l1) !important;
 }
 
 .mantine-Button-root {
   border-color: var(--color-primary-d1);
 
-  &[data-variant="outline"] {
+  &[data-variant=outline] {
     border-color: var(--color-frame);
   }
 }

@@ -1,7 +1,6 @@
 import { openDB, type IDBPDatabase } from 'idb';
 import type { MapperDocument } from "models/MapDocument";
 import type { MapperDocHeader } from "state/mapper/doc/slice";
-import { v4 as uuid } from "uuid";
 
 const KEY_PREFIX = "azaria/yerevan";
 const KEY_VERSION = KEY_PREFIX + "/version";
@@ -85,7 +84,7 @@ const Local = {
 
   async saveDocument (name: string, doc: MapperDocument) : Promise<string> {
     const db = await getDb();
-    const id = uuid();
+    const id = doc.id;
     const now = new Date().toISOString();
 
     await db.put(TABLE_DOCS, doc, id);
