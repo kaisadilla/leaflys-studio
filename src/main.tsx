@@ -74,7 +74,7 @@ const mantineTheme = createTheme({
     Text: Text.extend({
       styles: {
         root: {
-          wordBreak: 'break-all', // By default, Mantine only breaks at word boundaries.
+          
         }
       }
     }),

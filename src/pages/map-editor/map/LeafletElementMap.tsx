@@ -1,6 +1,6 @@
 import { useActiveElement } from 'context/useActiveElement';
 import { isPseudoContainer, shapeToPolygon, type MapperElement } from 'models/MapDocument';
-import useMapperDoc from 'state/mapper/useDoc';
+import useMapperDoc from 'state/mapper/doc/useDoc';
 import ActiveFeature from '../features/ActiveFeature';
 import MapPolygon from '../features/MapPolygon';
 import PointLayer from './PointLayer';

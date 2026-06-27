@@ -258,6 +258,17 @@ export function getChildren (element: MapperElement) : MapperElement[] | null {
 }
 
 export const ElementFactory = {
+  document (name: string) : MapperDocument {
+    return {
+      type: 'Group',
+      id: 'root',
+      name,
+      properties: [],
+      isHidden: false,
+      elements: [],
+    };
+  },
+
   group (name: string = "") : MapperGroup {
     return {
       type: 'Group',

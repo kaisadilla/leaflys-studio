@@ -1,12 +1,15 @@
-import { Button as MButton, Menu } from '@mantine/core';
+import { Button as MButton, Popover } from '@mantine/core';
 import { CaretDownIcon, FileIcon, PencilIcon, XIcon } from '@phosphor-icons/react';
 import Button from 'components/Button';
 import Fmt from 'Fmt';
-import { useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import useDispatchMapperDocument from 'state/mapper/useMapperDocument';
+import useDispatchMapperDocument from 'state/mapper/doc/dispatch';
+import type { MapperDocHeader } from 'state/mapper/doc/slice';
 import type { RootState } from 'state/store';
+import { openConfirmModal } from '../modals/ConfirmModal';
+import { openTextInputModal } from '../modals/TextInputModal';
 import styles from './DocumentsButton.module.scss';
 
 export interface DocumentsButtonProps {
@@ -20,10 +23,22 @@ function DocumentsButton (props: DocumentsButtonProps) {
   const { t } = useTranslation();
 
   const [open, setOpen] = useState(false);
+  const [, forceUpdate] = useReducer(x => x + 1, 0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      forceUpdate();
+    }, 1_000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <Menu position='bottom-start'>
-      <Menu.Target>
+    <Popover
+      position='bottom-start'
+      opened={open}
+    >
+      <Popover.Target>
         <MButton
           classNames={{
             root: styles.buttonRoot,
@@ -32,6 +47,7 @@ function DocumentsButton (props: DocumentsButtonProps) {
           }}
           variant='outline'
           color='gray'
+          onClick={() => setOpen(true)}
         >
           <FileIcon size={24} weight='thin' />
 
@@ -41,19 +57,16 @@ function DocumentsButton (props: DocumentsButtonProps) {
 
           <CaretDownIcon />
         </MButton>
-      </Menu.Target>
+      </Popover.Target>
 
-      <Menu.Dropdown
+      <Popover.Dropdown
         classNames={{ dropdown: styles.dropdown }}
         w={300}
       >
         {doc.headers.map(h => (
-          <Menu.Item
+          <div
             key={h.id}
-            classNames={{
-              item: styles.item,
-              itemLabel: styles.label,
-            }}
+            className={styles.item}
             data-active={h.id === doc.activeId}
             onClick={() => handleLoadDocument(h.id)}
           >
@@ -66,25 +79,54 @@ function DocumentsButton (props: DocumentsButtonProps) {
               </span>
             </div>
             <div className={styles.actions}>
-              <Button>
+              <Button
+                onClick={evt => handleRenameDocument(evt, h)}
+              >
                 <PencilIcon />
               </Button>
-              <Button>
+              {doc.headers.length > 1 && <Button
+                onClick={evt => handleDeleteDocument(evt, h)}
+              >
                 <XIcon />
-              </Button>
+              </Button>}
             </div>
-          </Menu.Item>
+          </div>
         ))}
-      </Menu.Dropdown>
-    </Menu>
+      </Popover.Dropdown>
+    </Popover>
   );
 
   function handleLoadDocument (id: string) {
+    setOpen(false);
     dispatch.document.load(id);
   }
 
-  function handleDeleteDocument (id: string) {
+  function handleRenameDocument (evt: React.MouseEvent, header: MapperDocHeader) {
+    evt.stopPropagation();
+    setOpen(false);
+    
+    openTextInputModal(
+      "Rename document",
+      "Give the document a new name:",
+      header.name,
+      name => {
+        dispatch.document.rename(header.id, name);
+      }
+    );
+  }
 
+  function handleDeleteDocument (evt: React.MouseEvent, header: MapperDocHeader) {
+    evt.stopPropagation();
+    setOpen(false);
+
+    openConfirmModal(
+      "Delete document",
+      `Are you sure you want to delete "${header.name}"? This action cannot ` +
+      "be undone.",
+      () => {
+        dispatch.document.delete(header.id);
+      }
+    );
   }
 }
 

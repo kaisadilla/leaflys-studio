@@ -1,8 +1,8 @@
 import type { Middleware } from "@reduxjs/toolkit";
 import type { MapperElement } from "models/MapDocument";
 import type { RootState } from "state/store";
-import { getElement, getElementIndex, getElementParent, MapperDocActions } from "./docSlice";
-import Mapper from "./events";
+import Mapper from "../events";
+import { getElement, getElementIndex, getElementParent, MapperDocActions } from "./slice";
 
 export const mapperDocMiddleware: Middleware<{}, RootState> = store => next => action => {
   const res = next(action);

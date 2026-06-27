@@ -4,8 +4,8 @@ import { Boxes, Circle, Eye, EyeOff, Folder, MapPin, Pentagon, Square, Waypoints
 import { isPseudoContainer, isShape, type MapperElement } from "models/MapDocument";
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { getElement, MapperDocActions } from 'state/mapper/docSlice';
-import useMapperDoc from "state/mapper/useDoc";
+import { getElement, MapperDocActions } from 'state/mapper/doc/slice';
+import useMapperDoc from "state/mapper/doc/useDoc";
 import { $cl } from 'utils';
 import MaterialSymbol from '../../../components/MaterialSymbol';
 import styles from './Element.module.scss';

@@ -1,8 +1,8 @@
 import { useActiveElement } from "context/useActiveElement";
 import type { Position } from "geojson";
 import { useDispatch } from "react-redux";
-import MapperDocThunks from "state/mapper/docThunks";
-import useMapperDoc from "state/mapper/useDoc";
+import MapperDocThunks from "state/mapper/doc/thunks";
+import useMapperDoc from "state/mapper/doc/useDoc";
 import useMapperSettings from "state/mapper/useSettings";
 import { type AppDispatch } from "state/store";
 import PolygonMoveVertices from "../features/PolygonMoveVertices";

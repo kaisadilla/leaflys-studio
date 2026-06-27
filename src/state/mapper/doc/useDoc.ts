@@ -1,7 +1,7 @@
 import type { MapperElement } from "models/MapDocument";
 import { useSelector } from "react-redux";
-import { store, type RootState } from "../store";
-import { getAllElements, getElement, getElementIndex, getElementParent, idExists, isElementHidden, type MapperDocState } from "./docSlice";
+import { store, type RootState } from "../../store";
+import { getAllElements, getElement, getElementIndex, getElementParent, idExists, isElementHidden, type MapperDocState } from "./slice";
 
 export default function useMapperDoc () {
   const doc = useSelector((state: RootState) => state.mapEditorDoc);

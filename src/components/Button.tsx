@@ -2,15 +2,14 @@ import { $cl } from 'utils';
 import styles from './Button.module.scss';
 
 export interface ButtonProps
-  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onClick'>
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>
 {
-  onClick?: () => void;
+
 }
 
 function Button ({
   className,
   children,
-  onClick,
   ...buttonProps
 }: ButtonProps) {
 
@@ -18,7 +17,6 @@ function Button ({
     <button
       {...buttonProps}
       className={$cl(styles.button, className)}
-      onClick={() => onClick?.()}
     >
       {children}
     </button>

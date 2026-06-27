@@ -4,10 +4,10 @@ import Ops from "Ops";
 import { MapperActions, MapperHistory, type MapperAction } from "pages/map-editor/MapperHistory";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { MapperDocActions } from "state/mapper/docSlice";
+import { MapperDocActions } from "state/mapper/doc/slice";
+import useMapperDoc from "state/mapper/doc/useDoc";
 import Mapper from "state/mapper/events";
 import { MapperUiActions } from "state/mapper/uiSlice";
-import useMapperDoc from "state/mapper/useDoc";
 import useMapperUi from "state/mapper/useUi";
 import { getStateSetterValue, type StateSetter } from "types";
 

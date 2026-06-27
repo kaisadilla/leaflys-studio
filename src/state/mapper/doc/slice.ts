@@ -1,8 +1,8 @@
-import { createAsyncThunk, createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Position } from "geojson";
 import Local from "Local";
 import Logger from "Logger";
-import { ContainerType, isContainer, isPseudoContainer, isShape, type Edge, type MapperDocument, type MapperElement, type MapperPolygon, type MapperRectangle, type Update } from "models/MapDocument";
+import { ContainerType, ElementFactory, isContainer, isPseudoContainer, isShape, type Edge, type MapperDocument, type MapperElement, type MapperPolygon, type MapperRectangle, type Update } from "models/MapDocument";
 import { v4 as uuid } from 'uuid';
 
 export interface MapperDocHeader {
@@ -25,71 +25,74 @@ export interface MapperDocState {
    * The header of each document in the local storage.
    */
   headers: MapperDocHeader[];
+  /**
+   * The timeline of changes to the current document.
+   */
+  history: {
+    /**
+     * The undo timeline (last being the most recent change).
+     */
+    past: string[];
+    /**
+     * The redo timeline (last being the next change).
+     */
+    future: string[];
+  }
 }
 
-function makeNewDocument (name: string) : MapperDocument {
-  const doc: MapperDocument = {
-    type: 'Group',
-    id: 'root',
-    name,
-    properties: [],
-    isHidden: false,
-    elements: [],
-  };
+async function getInitialState () : Promise<MapperDocState> {
+  const [ doc, docId ] = await (async () => {
+    let id = Local.getActiveDocumentId();
 
-  return doc;
+    if (id) {
+      const doc = await Local.loadDocument(id);
+      if (doc) return [doc, id] as const;
+    }
+
+    const doc = ElementFactory.document("New document");
+    id = await Local.saveDocument("New document", doc);
+
+    return [doc, id] as const;
+  })();
+
+  const headers = sortHeaders(Local.getDocumentHeaders());
+
+  return {
+    content: doc,
+    activeId: docId,
+    headers: headers,
+    history: {
+      past: [],
+      future: [],
+    },
+  }
 }
-
-const [ doc, docId ] = await (async () => {
-  let id = Local.getActiveDocumentId();
-
-  if (id) {
-    const doc = await Local.loadDocument(id);
-    if (doc) return [doc, id] as const;
-  }
-
-  const doc = makeNewDocument("New document");
-  id = await Local.saveDocument("New document", doc);
-
-  return [doc, id] as const;
-})();
-
-const headers = Local.getDocumentHeaders();
-
-const initialState: MapperDocState = {
-  content: doc,
-  activeId: docId,
-  headers: headers,
-}
-
-export const newDocument = createAsyncThunk(
-  'mapperDoc/newDocument',
-  async (name: string) => {
-    const doc = makeNewDocument(name);
-    const docId = await Local.saveDocument(name, doc);
-
-    return { doc, docId, };
-  }
-);
-
-export const loadDocument = createAsyncThunk(
-  'mapperDoc/loadDocument',
-  async (docId: string) => {
-    const doc = await Local.loadDocument(docId);
-    if (doc === null) return null;
-
-    return { doc, docId, };
-  }
-);
 
 const mapperDocSlice = createSlice({
   name: 'mapperDoc',
-  initialState,
+  initialState: await getInitialState(),
   reducers: {
     setDocument (state, action: PayloadAction<MapperDocument>) {
       const doc = action.payload;
 
       state.content = doc;
+    },
+
+    setDocumentName (state, action: PayloadAction<string>) {
+      const name = action.payload;
+      state.content.name = name;
+    },
+
+    setActiveDocId (state, action: PayloadAction<string>) {
+      const id = action.payload;
+
+      state.activeId = id;
+    },
+
+    updateHeaders (state, action: PayloadAction<MapperDocHeader[]>) {
+      const headers = action.payload;
+
+      state.headers = sortHeaders([...headers]);
     },
 
     addElements (state, action: PayloadAction<{
@@ -365,36 +368,6 @@ const mapperDocSlice = createSlice({
       Object.assign(el, update);
     }
   },
-  extraReducers: builder => {
-    builder
-      .addCase(newDocument.pending, state => {
-
-      })
-      .addCase(newDocument.fulfilled, (state, action) => {
-        const { doc, docId } = action.payload;
-
-        state.content = doc;
-        state.activeId = docId;
-        state.headers = Local.getDocumentHeaders();
-      })
-      .addCase(newDocument.rejected, (state, action) => {
-
-      })
-      .addCase(loadDocument.pending, state => {
-
-      })
-      .addCase(loadDocument.fulfilled, (state, action) => {
-        if (action.payload === null) return;
-
-        const { doc, docId } = action.payload;
-        
-        state.content = doc;
-        state.activeId = docId;
-      })
-      .addCase(loadDocument.rejected, state => {
-
-      });
-  },
 });
 
 export const mapperDocReducer = mapperDocSlice.reducer;
@@ -625,6 +598,17 @@ export function idExists (
   }
 
   return false;
+}
+
+/**
+ * Sorts the array of headers (mutating it) as it should be displayed in the
+ * app.
+ * @param headers The array of headers.
+ */
+function sortHeaders (headers: MapperDocHeader[]) {
+  return headers.sort(
+    (a, b) => b.modifiedAt.localeCompare(a.modifiedAt)
+  );
 }
 
 /**

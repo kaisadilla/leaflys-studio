@@ -5,7 +5,7 @@ import 'leaflet-truesize';
 import { useEffect } from "react";
 import { useMap } from "react-leaflet";
 import { useDispatch } from "react-redux";
-import useMapperDoc from "state/mapper/useDoc";
+import useMapperDoc from "state/mapper/doc/useDoc";
 import useMapperSettings from "state/mapper/useSettings";
 
 export interface PolygonMoveShapeToolProps {

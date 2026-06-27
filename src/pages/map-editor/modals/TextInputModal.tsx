@@ -4,16 +4,20 @@ import { useState } from "react";
 import { v4 as uuid } from "uuid";
 import Modal from "./Modal";
 
-export interface NewDocumentFormProps {
+export interface TextInputModalForm {
+  defaultValue: string;
   modalId: string;
+  label: string;
   onConfirm: (name: string) => void;
 }
 
-function NewDocumentForm ({
+function TextInputModal ({
+  defaultValue,
+  label,
   modalId,
   onConfirm,
-}: NewDocumentFormProps) {
-  const [ name, setName ] = useState("New document");
+}: TextInputModalForm) {
+  const [ name, setName ] = useState(defaultValue);
 
   return (
     <Modal
@@ -23,7 +27,7 @@ function NewDocumentForm ({
       <TextInput
         value={name}
         onChange={evt => setName(evt.target.value)}
-        label="Give the document a name:"
+        label={label}
         autoFocus
       />
     </Modal>
@@ -34,15 +38,25 @@ function NewDocumentForm ({
   }
 }
 
-export function openNewDocumentModal (onConfirm: (name: string) => void) {
+export function openTextInputModal (
+  title: string,
+  label: string,
+  defaultValue: string,
+  onConfirm: (name: string) => void,
+) {
   const id = uuid();
 
   modals.open({
     modalId: id,
-    title: 'New document',
-    children: <NewDocumentForm modalId={id} onConfirm={onConfirm} />,
+    title,
+    children: <TextInputModal
+      modalId={id}
+      label={label}
+      defaultValue={defaultValue}
+      onConfirm={onConfirm}
+    />,
     withCloseButton: false,
   });
 }
 
-export default NewDocumentForm;
+export default TextInputModal;

@@ -4,7 +4,7 @@ import GLT from "GLT";
 import { ElementFactory } from "models/MapDocument";
 import { Marker } from "react-leaflet";
 import { useDispatch } from "react-redux";
-import { MapperDocActions } from "state/mapper/docSlice";
+import { MapperDocActions } from "state/mapper/doc/slice";
 import { MapperUiActions } from "state/mapper/uiSlice";
 import useMapperUi from "state/mapper/useUi";
 import useMarkers from "../features/useMarkers";

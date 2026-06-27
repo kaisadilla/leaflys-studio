@@ -5,7 +5,7 @@ import Logger from "Logger";
 import { getChildren, shapeToPolygon, type MapperElement, type MapperPolygon } from "models/MapDocument";
 import { useEffect, useRef } from "react";
 import { useMap } from "react-leaflet";
-import useMapperDoc from "state/mapper/useDoc";
+import useMapperDoc from "state/mapper/doc/useDoc";
 import useMapperSettings from "state/mapper/useSettings";
 import type { Collection } from "types";
 

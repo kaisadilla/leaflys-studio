@@ -1,5 +1,5 @@
 import { useActiveElement } from 'context/useActiveElement';
-import useMapperDoc from 'state/mapper/useDoc';
+import useMapperDoc from 'state/mapper/doc/useDoc';
 import ElementDetails from './ElementDetails';
 
 export interface DetailsProps {

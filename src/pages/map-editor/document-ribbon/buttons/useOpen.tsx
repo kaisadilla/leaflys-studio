@@ -3,7 +3,7 @@ import fileOpen from 'file-open';
 import { loadMapperFile } from 'lib/mapperConvert';
 import Logger from 'Logger';
 import { useDispatch } from 'react-redux';
-import { MapperDocActions } from 'state/mapper/docSlice';
+import { MapperDocActions } from 'state/mapper/doc/slice';
 
 export default function useOpen () {
   const dispatch = useDispatch();

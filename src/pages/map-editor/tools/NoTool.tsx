@@ -1,7 +1,7 @@
 import GLT from 'GLT';
 import { isPseudoContainer, shapeToPolygon, type MapperFeature, type MapperPoint, type MapperPolygon, type MapperRectangle } from 'models/MapDocument';
 import { ImageOverlay, Marker, Polygon } from 'react-leaflet';
-import useMapperDoc from 'state/mapper/useDoc';
+import useMapperDoc from 'state/mapper/doc/useDoc';
 import useMapperSettings from 'state/mapper/useSettings';
 import useMarkers from '../features/useMarkers';
 import styles from './NoTool.module.scss';

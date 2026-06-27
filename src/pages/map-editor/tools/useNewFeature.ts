@@ -4,8 +4,8 @@ import GLT from 'GLT';
 import type { LeafletMouseEvent } from 'leaflet';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import useMapperDoc from 'state/mapper/doc/useDoc';
 import { MapperUiActions } from 'state/mapper/uiSlice';
-import useMapperDoc from 'state/mapper/useDoc';
 import useMarkers from '../features/useMarkers';
 import MapEvents from '../MapEvents';
 

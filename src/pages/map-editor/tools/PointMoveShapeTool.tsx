@@ -3,8 +3,8 @@ import GLT from "GLT";
 import type { LeafletDragEndEvent, LeafletMouseEvent } from "leaflet";
 import { Marker } from "react-leaflet";
 import { useDispatch } from "react-redux";
-import MapperDocThunks from "state/mapper/docThunks";
-import useMapperDoc from "state/mapper/useDoc";
+import MapperDocThunks from "state/mapper/doc/thunks";
+import useMapperDoc from "state/mapper/doc/useDoc";
 import { type AppDispatch } from "state/store";
 import useMarkers from "../features/useMarkers";
 

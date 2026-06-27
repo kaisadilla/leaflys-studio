@@ -5,7 +5,7 @@ import { ElementFactory } from "models/MapDocument";
 import { useState } from "react";
 import { Marker, Polygon } from "react-leaflet";
 import { useDispatch } from "react-redux";
-import { MapperDocActions } from "state/mapper/docSlice";
+import { MapperDocActions } from "state/mapper/doc/slice";
 import useMapperSettings from "state/mapper/useSettings";
 import useMapperUi from "state/mapper/useUi";
 import useMarkers from "../features/useMarkers";

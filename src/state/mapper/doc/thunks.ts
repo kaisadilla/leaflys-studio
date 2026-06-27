@@ -1,8 +1,9 @@
 import type { Position } from "geojson";
-import type { Corner, Edge, MapperElement, MapperRectangle } from "models/MapDocument";
+import Local from "Local";
+import { type Corner, type Edge, type MapperElement, type MapperRectangle } from "models/MapDocument";
 import { MapperActions, MapperHistory } from "pages/map-editor/MapperHistory";
 import type { AppDispatch, RootState } from "state/store";
-import { getElement, MapperDocActions } from "./docSlice";
+import { getElement, MapperDocActions } from "./slice";
 
 type Thunk = (dispatch: AppDispatch, getState: () => RootState) => void;
 
@@ -14,6 +15,35 @@ type EdgeAndNumber = [place: Edge, pos: number];
  * in the history so that they can be undone and redone.
  */
 const MapperDocThunks = {
+  deleteDocument (id: string) : Thunk {
+    return async (dispatch, getState) => {
+      const state = getState();
+      if (state.mapEditorDoc.headers.length < 2) {
+        console.error("Can't delete the only document that exists.");
+        return;
+      }
+
+      const deleted = await Local.deleteDocument(id);
+      if (deleted === false) return;
+
+      const headers = Local.getDocumentHeaders();
+      dispatch(MapperDocActions.updateHeaders(headers));
+      if (headers.length === 0) return; // This should never happen.
+
+      const currentId = state.mapEditorDoc.activeId;
+      if (currentId !== id) return;
+
+      const mostRecent = headers.reduce(
+        (latest, h) => h.modifiedAt > latest.modifiedAt ? h : latest
+      );
+      const doc = await Local.loadDocument(mostRecent.id);
+      if (!doc) return;
+
+      dispatch(MapperDocActions.setDocument(doc));
+      dispatch(MapperDocActions.setActiveDocId(mostRecent.id));
+    };
+  },
+
   addElement (
     element: MapperElement,
     groupId?: string | null,
@@ -27,7 +57,7 @@ const MapperDocThunks = {
       }));
     };
   },
-  
+
   addElements (
     elements: MapperElement[],
     groupId?: string | null,

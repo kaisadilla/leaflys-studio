@@ -3,8 +3,8 @@ import { useActiveElement } from 'context/useActiveElement';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
+import useMapperDoc from 'state/mapper/doc/useDoc';
 import { MapperUiActions } from 'state/mapper/uiSlice';
-import useMapperDoc from 'state/mapper/useDoc';
 import useMapperUi from 'state/mapper/useUi';
 import BasePanel from '../BasePanel';
 

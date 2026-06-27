@@ -6,7 +6,7 @@ import type { LeafletMouseEvent } from "leaflet";
 import MathExt from 'MathExt';
 import { useEffect, useRef, useState } from 'react';
 import { Marker, Polygon, Polyline, Tooltip, useMap } from 'react-leaflet';
-import useMapperDoc from 'state/mapper/useDoc';
+import useMapperDoc from 'state/mapper/doc/useDoc';
 import useMapperSettings from 'state/mapper/useSettings';
 import useMapperUi from 'state/mapper/useUi';
 import MapEvents from '../MapEvents';

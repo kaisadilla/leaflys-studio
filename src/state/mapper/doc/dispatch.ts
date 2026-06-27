@@ -1,25 +1,53 @@
 import type { Position } from "geojson";
-import type { Edge, MapperDocument, MapperElement, MapperPolygon, MapperRectangle, Update } from "models/MapDocument";
+import Local from "Local";
+import { ElementFactory, type Edge, type MapperDocument, type MapperElement, type MapperPolygon, type MapperRectangle, type Update } from "models/MapDocument";
 import { useMemo } from "react";
-import { useAppDispatch } from "../store";
-import { loadDocument, MapperDocActions, newDocument } from "./docSlice";
+import { useAppDispatch } from "../../store";
+import { MapperDocActions } from "./slice";
+import MapperDocThunks from "./thunks";
 
 export default function useDispatchMapperDocument () {
   const dispatch = useAppDispatch();
 
   return useMemo(() => ({
     document: {
+      // TODO: Probably needs to change to creating new from file.
       set (doc: MapperDocument) {
         dispatch(MapperDocActions.setDocument(doc));
       },
 
-      new (name: string) {
-        dispatch(newDocument(name));
+      async new (name: string) {
+        const doc = ElementFactory.document(name);
+        const docId = await Local.saveDocument(name, doc);
+        const headers = Local.getDocumentHeaders();
+
+        dispatch(MapperDocActions.setDocument(doc));
+        dispatch(MapperDocActions.setActiveDocId(docId));
+        dispatch(MapperDocActions.updateHeaders(headers));
       },
 
-      load (id: string) {
-        dispatch(loadDocument(id));
+      async load (id: string) {
+        const doc = await Local.loadDocument(id);
+        if (doc === null) return;
+
+        Local.setActiveDocumentId(id);
+
+        dispatch(MapperDocActions.setDocument(doc));
+        dispatch(MapperDocActions.setActiveDocId(id));
       },
+
+      async delete (id: string) {
+        dispatch(MapperDocThunks.deleteDocument(id));        
+      },
+
+      async rename (id: string, name: string) {
+        const updated = await Local.renameDocument(id, name);
+        if (updated === false) return;
+
+        const headers = Local.getDocumentHeaders();
+        dispatch(MapperDocActions.setDocumentName(name));
+        dispatch(MapperDocActions.updateHeaders(headers));
+      }
     },
 
     element: {

@@ -1,6 +1,6 @@
 import { openDB, type IDBPDatabase } from 'idb';
 import type { MapperDocument } from "models/MapDocument";
-import type { MapperDocHeader } from "state/mapper/docSlice";
+import type { MapperDocHeader } from "state/mapper/doc/slice";
 import { v4 as uuid } from "uuid";
 
 const KEY_PREFIX = "azaria/yerevan";
@@ -65,7 +65,10 @@ const Local = {
     if (id) return id;
     
     const headers = Local.getDocumentHeaders();
-    if (headers.length > 0) return headers[0].id;
+    if (headers.length > 0) {
+      Local.setActiveDocumentId(headers[0].id);
+      return headers[0].id;
+    }
 
     return null;
   },
@@ -117,14 +120,35 @@ const Local = {
     localStorage.setItem(KEY_DOC_HEADERS, JSON.stringify(headers));
   },
 
-  async deleteDocument (id: string) {
+  async deleteDocument (id: string) : Promise<boolean> {
     let headers = Local.getDocumentHeaders().filter(h => h.id !== id);
 
     localStorage.setItem(KEY_DOC_HEADERS, JSON.stringify(headers));
     
     const db = await getDb();
     await db.delete(TABLE_DOCS, id);
+
+    return true;
   },
+
+  async renameDocument (id: string, name: string) : Promise<boolean> {
+    const db = await getDb();
+    const doc = await db.get(TABLE_DOCS, id) as MapperDocument | null;
+    if (!doc) return false;
+
+    const headers = Local.getDocumentHeaders();
+    const idx = headers.findIndex(h => h.id === id);
+    if (idx === -1) return false;
+
+    headers[idx].name = name;
+    headers[idx].modifiedAt = new Date().toISOString();
+
+    localStorage.setItem(KEY_DOC_HEADERS, JSON.stringify(headers));
+
+    doc.name = name;
+    await db.put(TABLE_DOCS, doc, id);
+    return true;
+  }
 }
 
 export default Local;

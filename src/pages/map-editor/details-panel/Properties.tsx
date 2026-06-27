@@ -4,7 +4,7 @@ import useUuid from 'hook/useUuid';
 import { YEREVAN_PROP_PREFIX, type MapperElement, type MapperProperty } from 'models/MapDocument';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { MapperDocActions } from 'state/mapper/docSlice';
+import { MapperDocActions } from 'state/mapper/doc/slice';
 import { type AppDispatch } from 'state/store';
 import styles from './Properties.module.scss';
 

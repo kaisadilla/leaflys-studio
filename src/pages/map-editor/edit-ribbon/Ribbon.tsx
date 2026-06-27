@@ -1,5 +1,5 @@
 import { useActiveElement } from "context/useActiveElement";
-import useMapperDoc from "state/mapper/useDoc";
+import useMapperDoc from "state/mapper/doc/useDoc";
 import Point from "./Point";
 import Polygon from "./Polygon";
 import Rectangle from "./Rectangle";

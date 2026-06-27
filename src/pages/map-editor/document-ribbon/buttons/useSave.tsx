@@ -1,6 +1,6 @@
 import { saveAs } from "file-saver";
 import createMapperFile from "lib/createMapperFile";
-import useMapperDoc from "state/mapper/useDoc";
+import useMapperDoc from "state/mapper/doc/useDoc";
 
 export default function useSave () {
   const doc = useMapperDoc();

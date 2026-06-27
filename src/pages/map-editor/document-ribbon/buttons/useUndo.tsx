@@ -1,8 +1,8 @@
 import { useActiveElement } from "context/useActiveElement";
 import { MapperHistory, type AddVerticesMapperAction, type ChangeElementMapperAction, type ChangeVerticesMapperAction, type DeleteElementMapperAction, type DeleteVerticesMapperAction, type MapperAction, type MovePointAction, type MoveVertexMapperAction } from "pages/map-editor/MapperHistory";
 import { useDispatch } from "react-redux";
-import { MapperDocActions } from "state/mapper/docSlice";
-import useMapperDoc from "state/mapper/useDoc";
+import { MapperDocActions } from "state/mapper/doc/slice";
+import useMapperDoc from "state/mapper/doc/useDoc";
 
 export default function useUndo () {
   const doc = useMapperDoc();

@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { MapperDocActions } from 'state/mapper/docSlice';
+import { MapperDocActions } from 'state/mapper/doc/slice';
 import styles from './FileDragScreen.module.scss';
 import { openImportDocument } from './modals/ImportDocument';
 

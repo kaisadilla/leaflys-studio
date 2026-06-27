@@ -1,7 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
-import { mapperDocMiddleware } from "./mapper/docMiddleware";
-import { mapperDocReducer } from "./mapper/docSlice";
+import { mapperDocMiddleware } from "./mapper/doc/middleware";
+import { mapperDocReducer } from "./mapper/doc/slice";
 import { mapperSettingsReducer } from "./mapper/settingsSlice";
 import { mapperUiReducer } from "./mapper/uiSlice";
 

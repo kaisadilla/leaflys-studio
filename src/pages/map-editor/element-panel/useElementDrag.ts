@@ -4,8 +4,8 @@ import Logger from "Logger";
 import { isShape, type MapperElement } from "models/MapDocument";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { MapperDocActions } from "state/mapper/docSlice";
-import useMapperDoc from "state/mapper/useDoc";
+import { MapperDocActions } from "state/mapper/doc/slice";
+import useMapperDoc from "state/mapper/doc/useDoc";
 import { useElementDragCtx } from "./useElementDragContext";
 
 type DropTarget = 'before' | 'inside' | 'after';

@@ -7,9 +7,9 @@ import { Boxes, Circle, FolderPlus, MapPin, Pentagon, Square, Waypoints } from '
 import { ElementFactory, type MapperGroup } from "models/MapDocument";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
-import { MapperDocActions } from "state/mapper/docSlice";
+import { MapperDocActions } from "state/mapper/doc/slice";
+import useMapperDoc from "state/mapper/doc/useDoc";
 import { MapperUiActions, type MapperDocumentTool } from "state/mapper/uiSlice";
-import useMapperDoc from "state/mapper/useDoc";
 import useMapperUi from "state/mapper/useUi";
 import styles from './Ribbon.module.scss';
 

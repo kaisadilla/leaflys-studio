@@ -1,6 +1,6 @@
 import { type MapperElement } from "models/MapDocument";
 import { createContext, useContext, useState } from "react";
-import useMapperDoc from "state/mapper/useDoc";
+import useMapperDoc from "state/mapper/doc/useDoc";
 
 interface InternalState {
   element: MapperElement | null;

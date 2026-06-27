@@ -1,6 +1,6 @@
 import Local from "Local";
 import { useSelector } from "react-redux";
-import useDispatchMapperDocument from "state/mapper/useMapperDocument";
+import useDispatchMapperDocument from "state/mapper/doc/dispatch";
 import type { RootState } from "state/store";
 
 export default function useCommit () {

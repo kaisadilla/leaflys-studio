@@ -5,6 +5,10 @@
 
 :root {
   font-family: var(--font-sans);
+
+  ::selection {
+    background-color: orange;// #ff9500;
+  }
 }
 
 button,
