@@ -5,7 +5,7 @@ import { shapeToPolygon } from "models/MapDocument";
 import { useState } from "react";
 import { Polygon } from "react-leaflet";
 import { useDispatch } from "react-redux";
-import { MapperUiActions } from "state/mapper/uiSlice";
+import { MapperUiActions } from "state/mapper/ui/slice";
 import useMapperSettings from "state/mapper/useSettings";
 import PolygonDraw from "../features/PolygonDraw";
 

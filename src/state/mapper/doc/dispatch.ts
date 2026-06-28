@@ -18,11 +18,11 @@ export default function useDispatchMapperDocument () {
 
       async new (name: string) {
         const doc = ElementFactory.document(name);
-        const docId = await Local.saveDocument(name, doc);
+        await Local.saveDocument(doc);
         const headers = Local.getDocumentHeaders();
 
         dispatch(MapperDocActions.setDocument(doc));
-        dispatch(MapperDocActions.setActiveDocId(docId));
+        dispatch(MapperDocActions.setActiveDocId(doc.id));
         dispatch(MapperDocActions.updateHeaders(headers));
       },
 
@@ -41,12 +41,7 @@ export default function useDispatchMapperDocument () {
       },
 
       async rename (id: string, name: string) {
-        const updated = await Local.renameDocument(id, name);
-        if (updated === false) return;
-
-        const headers = Local.getDocumentHeaders();
-        dispatch(MapperDocActions.setDocumentName(name));
-        dispatch(MapperDocActions.updateHeaders(headers));
+        dispatch(MapperDocThunks.renameDocument(id, name));
       }
     },
 

@@ -37,6 +37,7 @@ function DocumentsButton (props: DocumentsButtonProps) {
     <Popover
       position='bottom-start'
       opened={open}
+      onChange={setOpen}
     >
       <Popover.Target>
         <MButton
@@ -47,7 +48,7 @@ function DocumentsButton (props: DocumentsButtonProps) {
           }}
           variant='outline'
           color='gray'
-          onClick={() => setOpen(true)}
+          onClick={() => setOpen(prev => !prev)}
         >
           <FileIcon size={24} weight='thin' />
 

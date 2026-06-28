@@ -261,7 +261,7 @@ export const ElementFactory = {
   document (name: string) : MapperDocument {
     return {
       type: 'Group',
-      id: 'root',
+      id: uuid(),
       name,
       properties: [],
       isHidden: false,

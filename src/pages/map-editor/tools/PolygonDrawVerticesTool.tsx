@@ -4,7 +4,7 @@ import GLT from 'GLT';
 import { isPseudoContainer } from 'models/MapDocument';
 import { useDispatch } from 'react-redux';
 import useMapperDoc from 'state/mapper/doc/useDoc';
-import { MapperUiActions } from 'state/mapper/uiSlice';
+import { MapperUiActions } from 'state/mapper/ui/slice';
 import useMapperSettings from 'state/mapper/useSettings';
 import PolygonDraw from '../features/PolygonDraw';
 import { MapperHistory } from '../MapperHistory';

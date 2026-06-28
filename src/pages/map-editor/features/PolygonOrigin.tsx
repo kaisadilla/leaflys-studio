@@ -1,8 +1,8 @@
 import type { Position } from 'geojson';
 import GLT from 'GLT';
 import { Marker, Polygon } from 'react-leaflet';
+import useMapperUi from 'state/mapper/ui/useUi';
 import useMapperSettings from 'state/mapper/useSettings';
-import useMapperUi from 'state/mapper/useUi';
 import useMarkers from './useMarkers';
 
 export interface PolygonOriginProps {

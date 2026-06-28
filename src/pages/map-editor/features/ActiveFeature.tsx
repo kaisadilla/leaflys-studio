@@ -1,7 +1,7 @@
 
 import { useActiveElement } from 'context/useActiveElement';
 import useMapperDoc from 'state/mapper/doc/useDoc';
-import useMapperUi from 'state/mapper/useUi';
+import useMapperUi from 'state/mapper/ui/useUi';
 import NewPointTool from '../tools/NewPointTool';
 import NewPolygonTool from '../tools/NewPolygonTool';
 import NewRectangleTool from '../tools/NewRectangleTool';

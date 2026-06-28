@@ -9,8 +9,8 @@ import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { MapperDocActions } from "state/mapper/doc/slice";
 import useMapperDoc from "state/mapper/doc/useDoc";
-import { MapperUiActions, type MapperDocumentTool } from "state/mapper/uiSlice";
-import useMapperUi from "state/mapper/useUi";
+import { MapperUiActions, type MapperDocumentTool } from "state/mapper/ui/slice";
+import useMapperUi from "state/mapper/ui/useUi";
 import styles from './Ribbon.module.scss';
 
 function Ribbon () {

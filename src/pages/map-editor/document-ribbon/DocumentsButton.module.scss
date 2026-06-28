@@ -29,7 +29,7 @@
   .item {
     user-select: none;
     cursor: pointer;
-    
+
     width: 100%;
 
     display: flex;
@@ -45,6 +45,13 @@
       .actions {
         visibility: visible;
       }
+    }
+
+    &[data-active=true] {
+      --color-ink: var(--color-primary-d1);
+      --color-ink-l2: var(--color-primary-l1);
+
+      background-color: var(--color-primary-l3);
     }
 
     .header {
@@ -80,12 +87,5 @@
         --size: 24px;
       }
     }
-  }
-
-  .item[data-active=true] {
-    --color-ink: var(--color-primary-d1);
-    --color-ink-l2: var(--color-primary-l1);
-
-    background-color: var(--color-primary-l3);
   }
 }

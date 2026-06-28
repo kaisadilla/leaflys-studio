@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { mapperDocMiddleware } from "./mapper/doc/middleware";
 import { mapperDocReducer } from "./mapper/doc/slice";
 import { mapperSettingsReducer } from "./mapper/settingsSlice";
-import { mapperUiReducer } from "./mapper/uiSlice";
+import { mapperUiReducer } from "./mapper/ui/slice";
 
 const rootReducer = combineReducers({
   mapEditorDoc: mapperDocReducer,

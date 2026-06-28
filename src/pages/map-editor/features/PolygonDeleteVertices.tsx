@@ -1,8 +1,8 @@
 import type { Position } from 'geojson';
 import GLT from 'GLT';
 import { Marker, Polygon, Polyline } from 'react-leaflet';
+import useMapperUi from 'state/mapper/ui/useUi';
 import useMapperSettings from 'state/mapper/useSettings';
-import useMapperUi from 'state/mapper/useUi';
 import styles from './PolygonDeleteVertices.module.scss';
 import useMarkers from './useMarkers';
 import useVertexFilter from './useVertexFilter';

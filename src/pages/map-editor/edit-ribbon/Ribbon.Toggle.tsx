@@ -2,8 +2,8 @@ import DescriptiveTooltip from "components/DescriptiveTooltip";
 import ToggleButton from "components/ToggleButton";
 import type React from "react";
 import { useDispatch } from "react-redux";
-import { MapperUiActions, type MapperTool } from "state/mapper/uiSlice";
-import useMapperUi from "state/mapper/useUi";
+import { MapperUiActions, type MapperTool } from "state/mapper/ui/slice";
+import useMapperUi from "state/mapper/ui/useUi";
 
 
 export interface Ribbon_ToggleProps {

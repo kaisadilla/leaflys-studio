@@ -7,8 +7,8 @@ import { useDispatch } from "react-redux";
 import { MapperDocActions } from "state/mapper/doc/slice";
 import useMapperDoc from "state/mapper/doc/useDoc";
 import Mapper from "state/mapper/events";
-import { MapperUiActions } from "state/mapper/uiSlice";
-import useMapperUi from "state/mapper/useUi";
+import { MapperUiActions } from "state/mapper/ui/slice";
+import useMapperUi from "state/mapper/ui/useUi";
 import { getStateSetterValue, type StateSetter } from "types";
 
 export type DeleteMode = 'individual' | 'section';

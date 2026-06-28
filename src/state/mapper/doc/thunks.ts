@@ -44,6 +44,22 @@ const MapperDocThunks = {
     };
   },
 
+  renameDocument (id: string, name: string) : Thunk {
+    return async (dispatch, getState) => {
+      const state = getState();
+
+      const updated = await Local.renameDocument(id, name);
+      if (updated === false) return;
+
+      const headers = Local.getDocumentHeaders();
+      dispatch(MapperDocActions.updateHeaders(headers));
+
+      if (id !== state.mapEditorDoc.activeId) return;
+
+      dispatch(MapperDocActions.setDocumentName(name));
+    }
+  },
+
   addElement (
     element: MapperElement,
     groupId?: string | null,

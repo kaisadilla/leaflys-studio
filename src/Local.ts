@@ -51,11 +51,17 @@ const Local = {
   },
 
   getDocumentHeaders () : MapperDocHeader[] {
-    const ids = localStorage.getItem(KEY_DOC_HEADERS);
+    const headers = localStorage.getItem(KEY_DOC_HEADERS);
 
-    if (ids) return JSON.parse(ids);
+    if (headers) return JSON.parse(headers);
 
     return [];
+  },
+
+  getDocumentHeader (id: string) : MapperDocHeader | null {
+    const headers = Local.getDocumentHeaders();
+
+    return headers.find(h => h.id === id) ?? null;
   },
 
   getActiveDocumentId () : string | null {
@@ -82,41 +88,51 @@ const Local = {
     return (await db.get(TABLE_DOCS, id)) ?? null;
   },
 
-  async saveDocument (name: string, doc: MapperDocument) : Promise<string> {
+  async saveDocument (doc: MapperDocument) {
+    const headers = Local.getDocumentHeaders();
+    if (headers.some(h => h.id === doc.id)) {
+      throw new Error(`A document with id '${doc.id}' already exists.`);
+    }
+
     const db = await getDb();
-    const id = doc.id;
     const now = new Date().toISOString();
 
-    await db.put(TABLE_DOCS, doc, id);
+    await db.put(TABLE_DOCS, doc, doc.id);
 
-    const headers = Local.getDocumentHeaders();
     headers.push({
-      id,
-      name,
+      id: doc.id,
+      name: doc.name,
       createdAt: now,
       modifiedAt: now,
     });
     
     localStorage.setItem(KEY_DOC_HEADERS, JSON.stringify(headers));
-
-    return id;
   },
 
-  async updateDocument (id: string, doc: MapperDocument) {
+  async updateDocument (id: string, doc: MapperDocument) : Promise<boolean> {
     const db = await getDb();
-    await db.put(TABLE_DOCS, doc, id);
 
     const headers = Local.getDocumentHeaders();
     const idx = headers.findIndex(h => h.id === id);
 
     if (idx === -1) {
-      console.warn(`No header found with id '${id}'`);
-      return;
+      console.warn(`No header found with id '${id}'.`);
+      return false;
+    }
+
+    try {
+      await db.put(TABLE_DOCS, doc, id);
+    }
+    catch (err) {
+      return false;
     }
 
     headers[idx].modifiedAt = new Date().toISOString();
+    headers[idx].name = doc.name;
 
     localStorage.setItem(KEY_DOC_HEADERS, JSON.stringify(headers));
+
+    return true;
   },
 
   async deleteDocument (id: string) : Promise<boolean> {

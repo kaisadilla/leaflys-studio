@@ -33,7 +33,7 @@ interface MapperUiState {
 
 const initialState: MapperUiState = {
   tool: null,
-  isSettingsPanelExpanded: false,
+  isSettingsPanelExpanded: true,
   toolSettings: {
     newPointMode: 'single',
     snap: false,

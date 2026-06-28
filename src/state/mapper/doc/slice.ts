@@ -41,25 +41,25 @@ export interface MapperDocState {
 }
 
 async function getInitialState () : Promise<MapperDocState> {
-  const [ doc, docId ] = await (async () => {
+  const doc = await (async () => {
     let id = Local.getActiveDocumentId();
 
     if (id) {
       const doc = await Local.loadDocument(id);
-      if (doc) return [doc, id] as const;
+      if (doc) return doc;
     }
 
     const doc = ElementFactory.document("New document");
-    id = await Local.saveDocument("New document", doc);
+    await Local.saveDocument(doc);
 
-    return [doc, id] as const;
+    return doc;
   })();
 
   const headers = sortHeaders(Local.getDocumentHeaders());
 
   return {
     content: doc,
-    activeId: docId,
+    activeId: doc.id,
     headers: headers,
     history: {
       past: [],
@@ -433,7 +433,7 @@ export function getElementParent (
  */
 export function getElementIndex (
   container: MapperElement, elementId: string
-) : number | null {
+) : number | null {;
   const parent = getElementParent(container, elementId);
   if (!parent) return null;
 
@@ -497,8 +497,8 @@ export function removeElement (container: MapperElement, elementId: string) {
 }
 
 /**
- * Adds an element to the group given, either as the first or the last element
- * of the group.
+ * Adds an element to the group given, at the index given. If no index is
+ * provided, the element will be appended to the end.
  * @param container The group to add the element to.
  * @param element The element to add.
  * @param index The index at which the element will be in the group.

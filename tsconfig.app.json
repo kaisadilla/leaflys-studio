@@ -26,6 +26,9 @@
     /* Additional config */
     "ignoreDeprecations": "6.0",
     "baseUrl": "./src",
+    "paths": {
+      "@test/*": ["../test/*"],
+    },
   },
-  "include": ["src"]
+  "include": ["src", "test"]
 }

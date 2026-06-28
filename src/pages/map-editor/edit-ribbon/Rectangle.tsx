@@ -3,8 +3,8 @@ import useKeyboardShortcut from "hook/useKeyboardShortcut";
 import { Eraser, Scissors } from 'lucide-react';
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
-import { MapperUiActions, type MapperPolygonTool } from "state/mapper/uiSlice";
-import useMapperUi from "state/mapper/useUi";
+import { MapperUiActions, type MapperPolygonTool } from "state/mapper/ui/slice";
+import useMapperUi from "state/mapper/ui/useUi";
 import Ribbon from "./Ribbon";
 import styles from './Ribbon.module.scss';
 

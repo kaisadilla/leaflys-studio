@@ -5,8 +5,8 @@ import { shapeToPolygon, type MapperPolygon } from "models/MapDocument";
 import Ops from "Ops";
 import { Marker, Polygon } from "react-leaflet";
 import { useDispatch } from "react-redux";
+import useMapperUi from "state/mapper/ui/useUi";
 import useMapperSettings from "state/mapper/useSettings";
-import useMapperUi from "state/mapper/useUi";
 import useMarkers from "./useMarkers";
 
 export interface MapPolygonProps {

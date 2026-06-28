@@ -1,8 +1,8 @@
 import { Radio } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { MapperUiActions, type NewPointToolMode } from 'state/mapper/uiSlice';
-import useMapperUi from 'state/mapper/useUi';
+import { MapperUiActions, type NewPointToolMode } from 'state/mapper/ui/slice';
+import useMapperUi from 'state/mapper/ui/useUi';
 import BasePanel from './BasePanel';
 
 export interface NewPointPanelProps {

@@ -1,6 +1,6 @@
 import deleteImg from 'assets/img/marker_delete.png';
 import deleteSelectedImg from 'assets/img/marker_delete_selected.png';
-import useMapperUi from 'state/mapper/useUi';
+import useMapperUi from 'state/mapper/ui/useUi';
 import styles from './useMarkers.module.scss';
 
 export default function useMarkers () {

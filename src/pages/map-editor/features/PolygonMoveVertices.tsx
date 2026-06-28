@@ -3,8 +3,8 @@ import GLT from 'GLT';
 import { LatLng, Marker as LMarker, Polygon as LPolygon, type LeafletDragEndEvent } from 'leaflet';
 import { useRef } from 'react';
 import { Marker, Polygon, useMap } from 'react-leaflet';
+import useMapperUi from 'state/mapper/ui/useUi';
 import useMapperSettings from 'state/mapper/useSettings';
-import useMapperUi from 'state/mapper/useUi';
 import { mercatorMidpoint } from 'turfExt';
 import useMarkers from './useMarkers';
 

@@ -1,4 +1,4 @@
-import useMapperUi from 'state/mapper/useUi';
+import useMapperUi from 'state/mapper/ui/useUi';
 import NewPointPanel from './panel/NewPointPanel';
 import DeleteVerticesPanel from './panel/polygon/DeleteVerticesPanel';
 import DifferencePanel from './panel/polygon/DifferencePanel';

@@ -6,8 +6,8 @@ import { useEffect, useState } from "react";
 import { ImageOverlay, Polygon } from "react-leaflet";
 import useMapperDoc from "state/mapper/doc/useDoc";
 import Mapper, { type MapperActiveElementChangeEvent, type MapperAddElementsEvent, type MapperDeleteElementEvent, type MapperHideEvent, type MapperUpdateElementEvent } from "state/mapper/events";
+import useMapperUi from "state/mapper/ui/useUi";
 import useMapperSettings from "state/mapper/useSettings";
-import useMapperUi from "state/mapper/useUi";
 import usePolygonLayer from "./usePolygonLayer";
 
 export interface ShapeLayerProps {
